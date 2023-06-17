@@ -214,4 +214,4 @@ app.post('/contact', async (req, res) => {
     }
 });
 
-app.listen(port, () => console.log('listening to port 8000'));
+app.listen(process.env.PORT || port, () => console.log('listening to port 8000'));
