@@ -8,7 +8,7 @@ const FeedbackModel = require('./channelSchema/feedback');
 const AdminModel = require('./channelSchema/adminSchema');
 const ContactModel = require('./channelSchema/contactSchema');
 const admin = require('firebase-admin');
-const creativeagency = require('./configs/creative-agency-own-firebase-adminsdk-1sbus-cf39d55c38.json');
+const creativeagency = require('./configs/creative-agency-work-firebase-adminsdk-ovdg9-6e8ce6578d.json');
 const fs = require('fs-extra');
 const cors = require('cors');
 require('dotenv').config();
@@ -213,5 +213,17 @@ app.post('/contact', async (req, res) => {
         res.status(500).send({ msg: err })
     }
 });
+
+
+
+app.get('/', async (req, res) => {
+    try {
+        res.send("hello I'm running...")
+    }
+    catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 
 app.listen(process.env.PORT || port, () => console.log('listening to port 8000'));
