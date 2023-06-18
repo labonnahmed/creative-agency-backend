@@ -24,9 +24,9 @@ app.use(fileUpload());
 
 
 // for firebase token...
-admin.initializeApp({
-    credential: admin.credential.cert(creativeagency)
-});
+// admin.initializeApp({
+//     credential: admin.credential.cert(creativeagency)
+// });
 
 
 
