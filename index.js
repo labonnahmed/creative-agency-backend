@@ -107,31 +107,31 @@ app.get('/serviceList', async (req, res) => {
 
 
 
-// // 4. create a new order which showing for serviceList(admin & customar)...
+// 4. create a new order which showing for serviceList(admin & customar)...
 
-// app.post('/newOrder', async (req, res) => {
-//     const data = req.body;
-//     const file = req.files.projectDemoImg;
+app.post('/newOrder', async (req, res) => {
+    const data = req.body;
+    const file = req.files.projectDemoImg;
 
-//     const filePath = `${__dirname}/images/${file.name}`;
+    const filePath = `${__dirname}/images/${file.name}`;
 
 
-//     try {
-//         await file.mv(filePath);
-//         const newImg = fs.readFileSync(filePath);
-//         const order = { ...data, projectDemoImg: Buffer.from(newImg.toString('base64')) };
+    try {
+        await file.mv(filePath);
+        const newImg = fs.readFileSync(filePath);
+        const order = { ...data, projectDemoImg: Buffer.from(newImg.toString('base64')) };
 
-//         let orderModel = new OrderModel(order);
-//         const result = await orderModel.save({});
+        let orderModel = new OrderModel(order);
+        const result = await orderModel.save({});
 
-//         fs.remove(filePath);
+        fs.remove(filePath);
 
-//         res.status(200).send(result);
-//     }
-//     catch (err) {
-//         res.status(500).send({ msg: 'An error occurred' });
-//     }
-// });
+        res.status(200).send(result);
+    }
+    catch (err) {
+        res.status(500).send({ msg: 'An error occurred' });
+    }
+});
 
 
 // 5. get all services for home page...
