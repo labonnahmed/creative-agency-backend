@@ -8,7 +8,7 @@ const FeedbackModel = require('./channelSchema/feedback');
 const AdminModel = require('./channelSchema/adminSchema');
 const ContactModel = require('./channelSchema/contactSchema');
 const admin = require('firebase-admin');
-// const creativeagency = require('./configs/creative-agency-work-firebase-adminsdk-ovdg9-6e8ce6578d.json');
+const creativeagency = require('./configs/creative-agency-work-firebase-adminsdk-ovdg9-6e8ce6578d.json');
 const fs = require('fs-extra');
 const cors = require('cors');
 require('dotenv').config();
@@ -24,9 +24,9 @@ app.use(fileUpload());
 
 
 // for firebase token...
-// admin.initializeApp({
-//     credential: admin.credential.cert(creativeagency)
-// });
+admin.initializeApp({
+    credential: admin.credential.cert(creativeagency)
+});
 
 
 
