@@ -8,7 +8,7 @@ const FeedbackModel = require('./channelSchema/feedback');
 const AdminModel = require('./channelSchema/adminSchema');
 const ContactModel = require('./channelSchema/contactSchema');
 const admin = require('firebase-admin');
-const creativeagency = require('./configs/creative-agency-work-firebase-adminsdk-ovdg9-6e8ce6578d.json');
+// const creativeagency = require('./configs/creative-agency-work-firebase-adminsdk-ovdg9-6e8ce6578d.json');
 const fs = require('fs-extra');
 const cors = require('cors');
 require('dotenv').config();
@@ -24,9 +24,9 @@ app.use(fileUpload());
 
 
 // for firebase token...
-admin.initializeApp({
-    credential: admin.credential.cert(creativeagency)
-});
+// admin.initializeApp({
+//     credential: admin.credential.cert(creativeagency)
+// });
 
 
 
@@ -58,12 +58,12 @@ app.get('/serviceList', async (req, res) => {
 // 2.  his/her order showing in dashboard serviceList..
 
 app.get('/orderCategories', async (req, res) => {
-    const bearer = req.headers.authorization;
-    if (bearer && bearer.startsWith('Bearer ')) {
-        const idToken = bearer.split(' ')[1];
-        try {
-            const decodedToken = await admin.auth().verifyIdToken(idToken);
-            if (decodedToken.email == req.query.email) {
+    // const bearer = req.headers.authorization;
+    // if (bearer && bearer.startsWith('Bearer ')) {
+    //     const idToken = bearer.split(' ')[1];
+    //     try {
+    //         const decodedToken = await admin.auth().verifyIdToken(idToken);
+    //         if (decodedToken.email == req.query.email) {
                 try {
                     const result = await OrderModel.find({ email: req.query.email })
                     res.status(200).send(result)
@@ -71,12 +71,13 @@ app.get('/orderCategories', async (req, res) => {
                     res.status(500).send(err);
                 }
             }
-        } catch (err) {
-            console.log(err)
-            res.status(500).send(err);
-        };
-    }
-});
+        // } catch (err) {
+        //     console.log(err)
+        //     res.status(500).send(err);
+        // };
+    // }
+// }
+);
 
 
 
