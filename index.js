@@ -55,164 +55,164 @@ app.get('/serviceList', async (req, res) => {
 
 
 
-// 2.  his/her order showing in dashboard serviceList..
+// // 2.  his/her order showing in dashboard serviceList..
 
-// app.get('/orderCategories', async (req, res) => {
-//     const bearer = req.headers.authorization;
-//     if (bearer && bearer.startsWith('Bearer ')) {
-//         const idToken = bearer.split(' ')[1];
-//         try {
-//             const decodedToken = await admin.auth().verifyIdToken(idToken);
-//             if (decodedToken.email == req.query.email) {
-//                 try {
-//                     const result = await OrderModel.find({ email: req.query.email })
-//                     res.status(200).send(result)
-//                 } catch (err) {
-//                     res.status(500).send(err);
-//                 }
-//             }
-//         } catch (err) {
-//             console.log(err)
-//             res.status(500).send(err);
-//         };
-//     }
-// });
+// // app.get('/orderCategories', async (req, res) => {
+// //     const bearer = req.headers.authorization;
+// //     if (bearer && bearer.startsWith('Bearer ')) {
+// //         const idToken = bearer.split(' ')[1];
+// //         try {
+// //             const decodedToken = await admin.auth().verifyIdToken(idToken);
+// //             if (decodedToken.email == req.query.email) {
+// //                 try {
+// //                     const result = await OrderModel.find({ email: req.query.email })
+// //                     res.status(200).send(result)
+// //                 } catch (err) {
+// //                     res.status(500).send(err);
+// //                 }
+// //             }
+// //         } catch (err) {
+// //             console.log(err)
+// //             res.status(500).send(err);
+// //         };
+// //     }
+// // });
 
 
 
-// // 3. only admin can create a new service...
+// // // 3. only admin can create a new service...
 
-// app.post('/createService', async (req, res) => {
-//     const data = req.body;
-//     const file = req.files.img;
-//     const filePath = `${__dirname}/images/${file.name}`;
+// // app.post('/createService', async (req, res) => {
+// //     const data = req.body;
+// //     const file = req.files.img;
+// //     const filePath = `${__dirname}/images/${file.name}`;
 
+// //     try {
+// //         await file.mv(filePath);
+// //         const newImg = fs.readFileSync(filePath);
+// //         const service = { ...data, img: Buffer.from(newImg.toString('base64')) }
+
+
+// //         let serviceModel = new ServiceModel(service);
+// //         const result = await serviceModel.save({});
+
+// //         fs.remove(filePath);
+
+// //         res.status(200).send(result);
+// //     }
+// //     catch (err) {
+// //         res.status(500).send({ msg: 'An error occurred' });
+// //     }
+// // });
+
+
+
+// // 4. create a new order which showing for serviceList(admin & customar)...
+
+// // app.post('/newOrder', async (req, res) => {
+// //     const data = req.body;
+// //     const file = req.files.projectDemoImg;
+
+// //     const filePath = `${__dirname}/images/${file.name}`;
+
+
+// //     try {
+// //         await file.mv(filePath);
+// //         const newImg = fs.readFileSync(filePath);
+// //         const order = { ...data, projectDemoImg: Buffer.from(newImg.toString('base64')) };
+
+// //         let orderModel = new OrderModel(order);
+// //         const result = await orderModel.save({});
+
+// //         fs.remove(filePath);
+
+// //         res.status(200).send(result);
+// //     }
+// //     catch (err) {
+// //         res.status(500).send({ msg: 'An error occurred' });
+// //     }
+// // });
+
+
+// // 5. get all services for home page...
+// app.get('/getProvidedServices', async (req, res) => {
 //     try {
-//         await file.mv(filePath);
-//         const newImg = fs.readFileSync(filePath);
-//         const service = { ...data, img: Buffer.from(newImg.toString('base64')) }
-
-
-//         let serviceModel = new ServiceModel(service);
-//         const result = await serviceModel.save({});
-
-//         fs.remove(filePath);
-
+//         const result = await ServiceModel.find({});
 //         res.status(200).send(result);
 //     }
 //     catch (err) {
-//         res.status(500).send({ msg: 'An error occurred' });
+//         res.status(500).send(err);
 //     }
 // });
 
 
 
-// 4. create a new order which showing for serviceList(admin & customar)...
+// // 6. admin feedback from dashboard....
 
-// app.post('/newOrder', async (req, res) => {
-//     const data = req.body;
-//     const file = req.files.projectDemoImg;
-
-//     const filePath = `${__dirname}/images/${file.name}`;
-
-
+// app.post('/feedback', async (req, res) => {
 //     try {
-//         await file.mv(filePath);
-//         const newImg = fs.readFileSync(filePath);
-//         const order = { ...data, projectDemoImg: Buffer.from(newImg.toString('base64')) };
-
-//         let orderModel = new OrderModel(order);
-//         const result = await orderModel.save({});
-
-//         fs.remove(filePath);
-
+//         let feedbackModel = new FeedbackModel(req.body);
+//         const result = await feedbackModel.save({})
 //         res.status(200).send(result);
 //     }
 //     catch (err) {
-//         res.status(500).send({ msg: 'An error occurred' });
+//         res.status(500).send(err)
 //     }
 // });
 
 
-// 5. get all services for home page...
-app.get('/getProvidedServices', async (req, res) => {
-    try {
-        const result = await ServiceModel.find({});
-        res.status(200).send(result);
-    }
-    catch (err) {
-        res.status(500).send(err);
-    }
-});
+
+// // 7. get feedbacks for showing in home page...
+
+// app.get('/clientsFeedback', async (req, res) => {
+//     try {
+//         const result = await FeedbackModel.find({});
+//         res.status(200).send(result);
+//     }
+//     catch (err) {
+//         res.status(500).send(err);
+//     }
+// });
 
 
 
-// 6. admin feedback from dashboard....
-
-app.post('/feedback', async (req, res) => {
-    try {
-        let feedbackModel = new FeedbackModel(req.body);
-        const result = await feedbackModel.save({})
-        res.status(200).send(result);
-    }
-    catch (err) {
-        res.status(500).send(err)
-    }
-});
-
+// // 8. admin can create a new admin...
+// app.post('/createAdmin', async (req, res) => {
+//     try {
+//         let adminModel = new AdminModel(req.body);
+//         const result = await adminModel.save({})
+//         res.status(200).send(result);
+//     }
+//     catch (err) {
+//         res.status(500).send(err);
+//     }
+// });
 
 
-// 7. get feedbacks for showing in home page...
-
-app.get('/clientsFeedback', async (req, res) => {
-    try {
-        const result = await FeedbackModel.find({});
-        res.status(200).send(result);
-    }
-    catch (err) {
-        res.status(500).send(err);
-    }
-});
+// // 9. check admin or not...
+// app.post('/adminAccess', async (req, res) => {
+//     try {
+//         const result = await AdminModel.find({ email: req.body.email });
+//         res.status(200).send(result);
+//     }
+//     catch (err) {
+//         res.status(500).send(err);
+//     }
+// });
 
 
 
-// 8. admin can create a new admin...
-app.post('/createAdmin', async (req, res) => {
-    try {
-        let adminModel = new AdminModel(req.body);
-        const result = await adminModel.save({})
-        res.status(200).send(result);
-    }
-    catch (err) {
-        res.status(500).send(err);
-    }
-});
-
-
-// 9. check admin or not...
-app.post('/adminAccess', async (req, res) => {
-    try {
-        const result = await AdminModel.find({ email: req.body.email });
-        res.status(200).send(result);
-    }
-    catch (err) {
-        res.status(500).send(err);
-    }
-});
-
-
-
-// 10. contact info get from customar
-app.post('/contact', async (req, res) => {
-    try {
-        let contactModel = new ContactModel(req.body);
-        const result = await contactModel.save({})
-        res.status(200).send(result)
-    }
-    catch (err) {
-        res.status(500).send({ msg: err })
-    }
-});
+// // 10. contact info get from customar
+// app.post('/contact', async (req, res) => {
+//     try {
+//         let contactModel = new ContactModel(req.body);
+//         const result = await contactModel.save({})
+//         res.status(200).send(result)
+//     }
+//     catch (err) {
+//         res.status(500).send({ msg: err })
+//     }
+// });
 
 
 
